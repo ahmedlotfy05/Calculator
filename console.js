@@ -1,6 +1,12 @@
+let num1 = null;
+
+let num2 = null;
+
+let operator = null;
+
 function add(num1, num2) {
 
-    return num1 + num2;
+    return (num1) + (num2);
 
 }
 
@@ -26,25 +32,25 @@ function operate(operator, num1, num2) {
 
     if (operator == "+") {
 
-        add(num1, num2);
+        return add(num1, num2);
 
     }
     
     else if (operator == "-") {
 
-        sub(num1,num2);
+        return sub(num1,num2);
 
     }
 
     else if (operator == "*") {
 
-        multiply(num1, num2);
+        return multiply(num1, num2);
         
     }
 
     else if (operator == "/") {
 
-        divide(num1, num2)
+        return divide(num1, num2)
 
     }
 
@@ -58,13 +64,15 @@ const display = document.querySelector("#display");
 
 const equalButton = document.querySelector(".equal")
 
+const clearButton = document.querySelector(".clear")
+
 numberButtons.forEach((button) => {
 
     button.addEventListener("click", () => {
 
-        num1 = button.id;
+        num1 = parseInt(button.id, 10);
         display.textContent = num1;
-
+        
     });
 
 });
@@ -73,7 +81,7 @@ numberButtons.forEach((button) => {
 
     button.addEventListener("click", () => {
 
-        num2 = button.id;
+        num2 = parseInt(button.id, 10);
         display.textContent = num2;
 
     });
@@ -93,13 +101,13 @@ operatorButtons.forEach((button) => {
 
 equalButton.addEventListener("click", () => {
 
-    if (num1 != 0 || num2!= 0 || operator != null)
+    if (num1 != null && num2 != null && operator != null)
         
     {
 
         let result = operate(operator, num1, num2);
         display.textContent = result;
-
+        
     }
     
     else {
@@ -108,4 +116,13 @@ equalButton.addEventListener("click", () => {
 
     }
 
-})
+});
+
+clearButton.addEventListener ("click", () => {
+
+    num1 = null;
+    num2 = null;
+    operator = "null";
+    display.textContent = "";
+
+});
