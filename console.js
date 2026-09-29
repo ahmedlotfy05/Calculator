@@ -108,6 +108,10 @@ equalButton.addEventListener("click", () => {
 
         let result = operate(operator, num1, num2);
         display.textContent = result;
+
+        num1 = null;
+        num2 = null;
+        operator = null;
         
     }
     
@@ -123,7 +127,7 @@ clearButton.addEventListener ("click", () => {
 
     num1 = null;
     num2 = null;
-    operator = "null";
+    operator = null;
     display.textContent = "";
 
 });
