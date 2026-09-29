@@ -70,20 +70,21 @@ numberButtons.forEach((button) => {
 
     button.addEventListener("click", () => {
 
-        num1 = parseInt(button.id, 10);
-        display.textContent = num1;
+        if (num1 == null)
+
+        {
+
+            num1 = parseInt(button.id, 10);
+            display.textContent = num1;
+
+        }
+
+        else {
+
+            num2 = parseInt(button.id, 10);
+            display.textContent = num2;
         
-    });
-
-});
-
-numberButtons.forEach((button) => {
-
-    button.addEventListener("click", () => {
-
-        num2 = parseInt(button.id, 10);
-        display.textContent = num2;
-
+        }
     });
 
 });
