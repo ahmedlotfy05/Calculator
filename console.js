@@ -1,12 +1,16 @@
-let num1 = null;
+let currentInput = ""; // Stores the digits being typed (allows multi-digit numbers)
+let storedNumber = null; // Stores running total / previous number
+let activeOperator = null; // Stores active operator
 
-let num2 = null;
-
-let operator = null;
+const numberButtons = document.querySelectorAll(".numbers");
+const operatorButtons = document.querySelectorAll(".operators");
+const display = document.querySelector("#display");
+const equalButton = document.querySelector(".equal");
+const clearButton = document.querySelector(".clear");
 
 function add(num1, num2) {
 
-    return (num1) + (num2);
+    return num1 + num2;
 
 }
 
@@ -24,110 +28,94 @@ function multiply(num1, num2) {
 
 function divide(num1, num2) {
 
+    if (num1 == 0 && num2 == 0)
+
+        {
+ 
+            return display.textContent = "Error";
+
+        }
+
+    else {
+
     return num1 / num2;
+
+    }
 
 }
 
 function operate(operator, num1, num2) {
 
-    if (operator == "+") {
+    if (operator === "+") return add(num1, num2);
+    if (operator === "-") return sub(num1, num2);
+    if (operator === "*") return multiply(num1, num2);
+    if (operator === "/") return divide(num1, num2);
 
-        return add(num1, num2);
-
-    }
-    
-    else if (operator == "-") {
-
-        return sub(num1,num2);
-
-    }
-
-    else if (operator == "*") {
-
-        return multiply(num1, num2);
-        
-    }
-
-    else if (operator == "/") {
-
-        return divide(num1, num2)
-
-    }
+    return num2;
 
 }
 
-const numberButtons = document.querySelectorAll(".numbers");
-
-const operatorButtons = document.querySelectorAll(".operators")
-
-const display = document.querySelector("#display");
-
-const equalButton = document.querySelector(".equal")
-
-const clearButton = document.querySelector(".clear")
-
+// 1. Multi-digit input: append digits as text
 numberButtons.forEach((button) => {
 
     button.addEventListener("click", () => {
 
-        if (num1 == null)
+        currentInput += button.id;
+        display.textContent = currentInput;
 
-        {
-
-            num1 = parseInt(button.id, 10);
-            display.textContent = num1;
-
-        }
-
-        else {
-
-            num2 = parseInt(button.id, 10);
-            display.textContent = num2;
-        
-        }
     });
 
 });
 
+// 2 & 3. Multiple operands & chained operations
 operatorButtons.forEach((button) => {
 
     button.addEventListener("click", () => {
 
-        operator = button.id;
-        display.textContent = operator;
+        if (currentInput === "" && storedNumber === null) return;
+
+        display.textContent = button.id;
+
+        // If an operator is pressed and a number was typed, evaluate previous operation
+        if (storedNumber !== null && currentInput !== "") {
+
+            storedNumber = operate(activeOperator, storedNumber, parseFloat(currentInput));
+            
+
+        } else if (currentInput !== "") {
+
+            storedNumber = parseFloat(currentInput);
+        }
+
+        activeOperator = button.id;
+        currentInput = ""; // Ready for the next number
 
     });
-
+    
 });
 
+// Calculate final result
 equalButton.addEventListener("click", () => {
 
-    if (num1 != null && num2 != null && operator != null)
-        
-    {
+    if (storedNumber !== null && currentInput !== "" && activeOperator !== null) {
 
-        let result = operate(operator, num1, num2);
+        let result = operate(activeOperator, storedNumber, parseFloat(currentInput));
         display.textContent = result;
 
-        num1 = null;
-        num2 = null;
-        operator = null;
-        
-    }
-    
-    else {
-
-        display.textContent = "Invalid input";
-
+        // Keep result in memory so you can immediately continue calculating with another operator
+        storedNumber = result;
+        currentInput = "";
+        activeOperator = null;
     }
 
 });
 
-clearButton.addEventListener ("click", () => {
+// Reset state
+clearButton.addEventListener("click", () => {
 
-    num1 = null;
-    num2 = null;
-    operator = null;
+    currentInput = "";
+    storedNumber = null;
+    activeOperator = null;
     display.textContent = "";
 
 });

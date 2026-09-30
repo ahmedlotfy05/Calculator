@@ -36,7 +36,7 @@ h1 {
 
 /* 5 columns total: 3 for numbers, 2 for controls/operators */
 #container {
-    width: 360px;
+    width: 500px;
     padding: 1.5rem;
     border-radius: 24px;
     background: rgba(30, 41, 59, 0.75);
