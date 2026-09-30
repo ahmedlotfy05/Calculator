@@ -1,0 +1,167 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top left, #1e293b, #0f172a);
+    color: #f8fafc;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+/* Remove raw line breaks */
+#container br {
+    display: none;
+}
+
+/* 5 columns total: 3 for numbers, 2 for controls/operators */
+#container {
+    width: 360px;
+    padding: 1.5rem;
+    border-radius: 24px;
+    background: rgba(30, 41, 59, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 70px repeat(4, 52px);
+    gap: 10px;
+}
+
+/* Display spans the entire top width */
+#display {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding: 0.75rem 1.25rem;
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #38bdf8;
+    font-size: 2.2rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow-x: none;
+    margin-bottom: 6px;
+}
+
+/* Shared button styles */
+button {
+    border: none;
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* ===============================
+   LEFT SIDE: NUMBERS (Cols 1 to 3)
+   =============================== */
+.numbers {
+    background: #334155;
+    color: #f8fafc;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.numbers:hover {
+    background: #475569;
+}
+
+#\31  { grid-column: 1; grid-row: 2; }
+#\32  { grid-column: 2; grid-row: 2; }
+#\33  { grid-column: 3; grid-row: 2; }
+
+#\34  { grid-column: 1; grid-row: 3; }
+#\35  { grid-column: 2; grid-row: 3; }
+#\36  { grid-column: 3; grid-row: 3; }
+
+#\37  { grid-column: 1; grid-row: 4; }
+#\38  { grid-column: 2; grid-row: 4; }
+#\39  { grid-column: 3; grid-row: 4; }
+
+/* 0 sits centered on the bottom row, spanning cols 1 & 2 */
+#\30  { 
+    grid-column: 1 / span 3; 
+    grid-row: 5; 
+}
+
+/* ===============================
+   RIGHT SIDE: CONTROLS (Cols 4 to 5)
+   =============================== */
+.operators {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.operators:hover {
+    background: rgba(56, 189, 248, 0.25);
+}
+
+/* Clear & Divide (Row 2) */
+.clear {
+    grid-column: 4;
+    grid-row: 2;
+    background: rgba(244, 63, 94, 0.15);
+    color: #fb7185;
+    border: 1px solid rgba(244, 63, 94, 0.25);
+}
+
+.clear:hover {
+    background: rgba(244, 63, 94, 0.25);
+}
+
+#\/ { grid-column: 5; grid-row: 2; }
+
+/* Multiply & Subtract (Row 3) */
+#\* { grid-column: 4; grid-row: 3; }
+#\- { grid-column: 5; grid-row: 3; }
+
+/* Add (Row 4, spans both control columns) */
+#\+ {
+    grid-column: 4 / span 2;
+    grid-row: 4;
+}
+
+/* Equals (Row 5, spans both control columns) */
+.equal {
+    grid-column: 4 / span 2;
+    grid-row: 5;
+    background: #38bdf8;
+    color: #0f172a;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+}
+
+.equal:hover {
+    background: #7dd3fc;
+}
